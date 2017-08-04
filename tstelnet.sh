@@ -1,6 +1,6 @@
 #!/usr/bin/expect
-set Login "" 
-set Password ""
+set Login "serveradmin" 
+set Password "SERVERADMIN_PASSWORD"
 #If it all goes pear shaped the script will timeout after 20 seconds.
 set timeout 20
 #This spawns the telnet program and connects it to the variable name
