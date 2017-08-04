@@ -1,9 +1,13 @@
 #!/bin/bash
-apt-get update
-apt-get upgrade -y
-apt-get autoclean
-apt-get autoremove -y
 NOW=$(date +'%Y-%m-%d')
+echo 'apt-get update' >> /var/local/apt/$NOW.log
+apt-get update >> /var/local/apt/$NOW.log
+echo 'apt-get upgrade' >> /var/local/apt/$NOW.log
+apt-get upgrade -y >> /var/local/apt/$NOW.log
+echo 'apt-get autoclean' >> /var/local/apt/$NOW.log
+apt-get autoclean >> /var/local/apt/$NOW.log
+echo 'apt-get autoremove' >> /var/local/apt/$NOW.log
+apt-get autoremove -y >> /var/local/apt/$NOW.log
 #CHECKRESTART=$(/usr/sbin/checkrestart -v | grep -q 'Found 0 processes using old versions of upgraded file')
 #$CHECKRESTART
 /usr/sbin/checkrestart -v | grep -q 'Found 0 processes using old versions of upgraded file'
