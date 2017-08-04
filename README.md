@@ -5,4 +5,4 @@ It installs updates using apt-get, Runs a program to check if a restart is requi
 
 Credits
 -------
-Some credit due to this (https://stackoverflow.com/a/7013379) post on stackoverflow for the telnet script.
+Some credit due to [this](https://stackoverflow.com/a/7013379/ "Stackoverflow") post on stackoverflow for the telnet script.
