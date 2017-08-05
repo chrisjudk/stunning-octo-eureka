@@ -1,5 +1,7 @@
 #!/bin/bash
 NOW=$(date +'%Y-%m-%d')
+Telnetlogin=$(sed -n '2,2p; 3q' ./credentials)
+Telnetpassword=$(sed -n '4,4p; 5q' ./credentials)
 echo 'apt-get update' >> /var/local/apt/$NOW.log
 apt-get update >> /var/local/apt/$NOW.log
 echo 'apt-get upgrade' >> /var/local/apt/$NOW.log
@@ -15,5 +17,5 @@ if [ $? -eq 0 ]
 then
   echo $NOW: Update complete, no restart required >> /var/local/log/update.log
 else
-  echo $NOW: Update complete, restart required >> /var/local/log/update.log && ./tstelnet.sh && /etc/init.d/teamspeak3 stop && /sbin/shutdown -r now
+  echo $NOW: Update complete, restart required >> /var/local/log/update.log && ./tstelnet.sh $Telnetlogin $Telnetpassword && /etc/init.d/teamspeak3 stop && /sbin/shutdown -r now
 fi
