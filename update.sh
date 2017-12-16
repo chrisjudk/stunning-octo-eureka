@@ -4,8 +4,8 @@ Telnetlogin=$(sed -n '2,2p; 3q' ./credentials)
 Telnetpassword=$(sed -n '4,4p; 5q' ./credentials)
 echo 'apt-get update' >> /var/local/apt/$NOW.log
 apt-get update >> /var/local/apt/$NOW.log
-echo 'apt-get upgrade' >> /var/local/apt/$NOW.log
-apt-get upgrade -y >> /var/local/apt/$NOW.log
+echo 'apt-get dist-upgrade' >> /var/local/apt/$NOW.log
+apt-get dist-upgrade -y >> /var/local/apt/$NOW.log
 echo 'apt-get autoclean' >> /var/local/apt/$NOW.log
 apt-get autoclean >> /var/local/apt/$NOW.log
 echo 'apt-get autoremove' >> /var/local/apt/$NOW.log
