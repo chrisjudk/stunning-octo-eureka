@@ -17,5 +17,8 @@ if [ $? -eq 0 ]
 then
   echo $NOW: Update complete, no restart required >> /var/local/log/update.log
 else
-  echo $NOW: Update complete, restart required >> /var/local/log/update.log && ./tstelnet.sh $Telnetlogin $Telnetpassword && /etc/init.d/teamspeak3 stop && /sbin/shutdown -r now
+  echo $NOW: Update complete, restart required >> /var/local/log/update.log
+  ./tstelnet.sh $Telnetlogin $Telnetpassword
+  sudo -u ts3server /home/ts3server/ts3server stop
+  /sbin/shutdown -r now
 fi
