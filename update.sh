@@ -7,7 +7,7 @@ export DEBIAN_PRIORITY=critical
 echo 'apt-get update' >> /var/local/apt/$NOW.log
 apt-get -y update >> /var/local/apt/$NOW.log
 echo 'apt-get dist-upgrade' >> /var/local/apt/$NOW.log
-apt-get -y -o "Dpkg::Options::--force-confdef" -o "Dpkg::Options::=--force-confold" dist-upgrade >> /var/local/apt/$NOW.log
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade >> /var/local/apt/$NOW.log
 echo 'apt-get autoclean' >> /var/local/apt/$NOW.log
 apt-get -y autoclean >> /var/local/apt/$NOW.log
 echo 'apt-get autoremove' >> /var/local/apt/$NOW.log
