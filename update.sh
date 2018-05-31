@@ -2,8 +2,10 @@
 NOW=$(date +'%Y-%m-%d')
 Telnetlogin=$(sed -n '2,2p; 3q' ./credentials)
 Telnetpassword=$(sed -n '4,4p; 5q' ./credentials)
+cd "/root/"
 export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 echo 'apt-get update' >> /var/local/log/apt/$NOW.log
 apt-get -y update >> /var/local/log/apt/$NOW.log
 echo 'apt-get dist-upgrade' >> /var/local/log/apt/$NOW.log
