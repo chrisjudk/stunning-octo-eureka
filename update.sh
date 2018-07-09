@@ -1,8 +1,8 @@
 #!/bin/bash
 NOW=$(date +'%Y-%m-%d')
+cd "${0%/*}"
 Telnetlogin=$(sed -n '2,2p; 3q' /usr/local/sbin/update_stuff/credentials)
 Telnetpassword=$(sed -n '4,4p; 5q' /usr/local/sbin/update_stuff/credentials)
-cd "/root/"
 export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
