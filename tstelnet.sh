@@ -1,8 +1,11 @@
 #!/usr/bin/expect
-set Login [lindex $argv 0] 
+# Set login as argument 0
+set Login [lindex $argv 0]
+# Set password as argument 1
 set Password [lindex $argv 1]
 #If it all goes pear shaped the script will timeout after 20 seconds.
 set timeout 20
+
 #This spawns the telnet program and connects it to the variable name
 spawn telnet 127.0.0.1 10011 
 #The script sends the user variable
@@ -16,5 +19,5 @@ send "\r"
 send "gm msg=Server\\sis\\sshutting\\sdown..."
 send "\r"
 sleep 30
-#This hands control of the keyboard over two you (Nice expect feature!)
+#This hands control of the keyboard over to you (Nice expect feature!)
 #interact
