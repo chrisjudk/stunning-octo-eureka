@@ -11,7 +11,7 @@ export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-Updates
+# Updates
 echo 'apt-get update' >> /var/local/log/apt/$NOW.log
 apt-get -y update >> /var/local/log/apt/$NOW.log # Get updates and write output to log file with current date as title 
 echo 'apt-get dist-upgrade' >> /var/local/log/apt/$NOW.log 
