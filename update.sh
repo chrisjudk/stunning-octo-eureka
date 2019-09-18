@@ -2,7 +2,7 @@
 NOW=$(date +'%Y-%m-%d') # Get current date and put in YYYY-MM-DD format
 cd "${0%/*}" # Changed directory to the directory of this file
 
-# Read telnet credentials from file
+# Read telnet credentials from file (./credentials)
 telnetLogin=$(sed -n '2,2p; 3q' ./credentials)
 telnetPassword=$(sed -n '4,4p; 5q' ./credentials)
 
@@ -13,10 +13,10 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #Updates
 echo '----------[apt-get update]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y update >> /var/local/log/apt/$NOW.log # Get updates and write output to log file with current date as title 
-echo '----------[apt-get dist-upgrade]--------------------' >> /var/local/log/apt/$NOW.log 
+apt-get -y update >> /var/local/log/apt/$NOW.log # Get updates and write output to log file with current date as title
+echo '----------[apt-get dist-upgrade]--------------------' >> /var/local/log/apt/$NOW.log
 apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade >> /var/local/log/apt/$NOW.log # Install updates and write output to log file
-echo '----------[apt-get autoclean]--------------------' >> /var/local/log/apt/$NOW.log 
+echo '----------[apt-get autoclean]--------------------' >> /var/local/log/apt/$NOW.log
 apt-get -y autoclean >> /var/local/log/apt/$NOW.log # Autoclean and output to log
 echo '----------[apt-get autoremove]--------------------' >> /var/local/log/apt/$NOW.log
 apt-get -y autoremove >> /var/local/log/apt/$NOW.log # Autoremove and output to log
