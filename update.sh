@@ -30,7 +30,7 @@ if [ $? -eq 0 ]
 then
   echo $NOW: Update complete, no restart required > >(tee -a /var/local/log/update.log)
 else
-  echo $NOW: Update complete, restart required > >(/var/local/log/update.log)
+  echo $NOW: Update complete, restart required > >(tee -a /var/local/log/update.log)
   #./tstelnet.sh $telnetLogin $telnetPassword # Run telnet to send global message to TS server letting everyone know that the server is about to shutdown
   # sudo -u ts3server /home/ts3server/ts3server stop # Stop the teamspeak server
   /sbin/shutdown -r now # Shutdown system
