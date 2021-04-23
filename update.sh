@@ -15,14 +15,14 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 echo "$NOW: Begin" >> /var/local/log/error.log
 echo 'NOTE: All apt errors will be forwarded to /var/local/log/error.log' >> /var/local/log/apt/$NOW.log
 echo '----------[apt-get update]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y update >> /var/local/log/apt/$NOW.log 2>/var/local/log/error.log # Get updates and write output to log file with current date as title
+apt-get -y update >> /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Get updates and write output to log file with current date as title
 echo '----------[apt-get dist-upgrade]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log# Install updates and write output to log file
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Install updates and write output to log file
 echo '----------[apt-get autoclean]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y autoclean > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log # Autoclean and output to log
+apt-get -y autoclean > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Autoclean and output to log
 echo '----------[apt-get autoremove]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y autoremove > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log # Autoremove and output to log
-echo "$NOW: End\n"  >> /var/local/log/error.log
+apt-get -y autoremove > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Autoremove and output to log
+echo "$NOW: End"  >> /var/local/log/error.log
 
 #Check if Restart is required
 /usr/sbin/checkrestart -v | grep -q 'Found 0 processes using old versions of upgraded file'
