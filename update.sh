@@ -12,25 +12,25 @@ export DEBIAN_PRIORITY=critical
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #Updates
-echo "$NOW: Begin" >> /var/local/log/error.log
-echo 'NOTE: All apt errors will be forwarded to /var/local/log/error.log' >> /var/local/log/apt/$NOW.log
-echo '----------[apt-get update]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y update >> /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Get updates and write output to log file with current date as title
-echo '----------[apt-get dist-upgrade]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Install updates and write output to log file
-echo '----------[apt-get autoclean]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y autoclean > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Autoclean and output to log
-echo '----------[apt-get autoremove]--------------------' >> /var/local/log/apt/$NOW.log
-apt-get -y autoremove > /var/local/log/apt/$NOW.log 2>/var/local/log/error.log #Autoremove and output to log
-echo "$NOW: End"  >> /var/local/log/error.log
+echo "$NOW: Begin" > >(tee -a /var/local/log/error.log)
+echo 'NOTE: All apt errors will be forwarded to /var/local/log/error.log' > >(tee -a /var/local/log/apt/$NOW.log)
+echo '----------[apt-get update]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
+apt-get -y update > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log >&2) #Get updates and write output to log file with current date as title
+echo '----------[apt-get dist-upgrade]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
+apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log >&2) #Install updates and write output to log file
+echo '----------[apt-get autoclean]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
+apt-get -y autoclean > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log) #Autoclean and output to log
+echo '----------[apt-get autoremove]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
+apt-get -y autoremove > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log) #Autoremove and output to log
+echo "$NOW: End" > >(tee -a /var/local/log/error.log)
 
 #Check if Restart is required
 /usr/sbin/checkrestart -v | grep -q 'Found 0 processes using old versions of upgraded file'
 if [ $? -eq 0 ]
 then
-  echo $NOW: Update complete, no restart required >> /var/local/log/update.log
+  echo $NOW: Update complete, no restart required > >(tee -a /var/local/log/update.log)
 else
-  echo $NOW: Update complete, restart required >> /var/local/log/update.log
+  echo $NOW: Update complete, restart required > >(/var/local/log/update.log)
   #./tstelnet.sh $telnetLogin $telnetPassword # Run telnet to send global message to TS server letting everyone know that the server is about to shutdown
   # sudo -u ts3server /home/ts3server/ts3server stop # Stop the teamspeak server
   /sbin/shutdown -r now # Shutdown system
