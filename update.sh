@@ -8,6 +8,7 @@ export DEBIAN_PRIORITY=critical
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #Updates
+echo "" > >(tee -a /var/local/log/error.log)
 echo "$NOW: Begin" > >(tee -a /var/local/log/error.log)
 echo 'NOTE: All apt errors will be forwarded to /var/local/log/error.log' > >(tee -a /var/local/log/apt/$NOW.log)
 echo '----------[apt-get update]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
@@ -18,14 +19,17 @@ echo '----------[apt-get autoclean]--------------------' > >(tee -a /var/local/l
 apt-get -y autoclean > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log) #Autoclean and output to log
 echo '----------[apt-get autoremove]--------------------' > >(tee -a /var/local/log/apt/$NOW.log)
 apt-get -y autoremove > >(tee -a /var/local/log/apt/$NOW.log) 2> >(tee -a /var/local/log/error.log) #Autoremove and output to log
+echo "" > >(tee -a /var/local/log/error.log)
 echo "$NOW: End" > >(tee -a /var/local/log/error.log)
 
 #Check if Restart is required
 /usr/sbin/checkrestart -v | grep -q 'Found 0 processes using old versions of upgraded file'
 if [ $? -eq 0 ]
 then
+  echo "" > >(tee -a /var/local/log/update.log)
   echo $NOW: Update complete, no restart required > >(tee -a /var/local/log/update.log)
 else
+  echo "" > >(tee -a /var/local/log/update.log)
   echo $NOW: Update complete, restart required > >(tee -a /var/local/log/update.log)
   /sbin/shutdown -r now # Shutdown system
 fi
